@@ -5,6 +5,7 @@ import javax.persistence.*;
 @Entity
 public class Task {
     @Id
+    @Column(name="task_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer task_id;
 
@@ -13,8 +14,8 @@ public class Task {
     private Boolean isDone;
 
     @ManyToOne(targetEntity = List.class)
-    @JoinColumn(name="list")
-    private Integer list_id;
+    @JoinColumn(name="list_id")
+    private List list;
 
     public Integer getTask_id() {
         return task_id;
@@ -36,11 +37,18 @@ public class Task {
         isDone = done;
     }
 
-    public Integer getList_id() {
-        return list_id;
+    public List getList() {
+        return list;
     }
 
-    public void setList_id(Integer list_id) {
-        this.list_id = list_id;
+    public void setList(List list) {
+        this.list = list;
+    }
+
+    public Task() {};
+
+    public Task(String description, List list) {
+        setDescription(description);
+        setList(list);
     }
 }

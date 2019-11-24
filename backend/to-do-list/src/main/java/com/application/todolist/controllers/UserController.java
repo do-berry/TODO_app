@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @Controller
 @RequestMapping(path="/user")
 public class UserController {
@@ -15,17 +17,17 @@ public class UserController {
 
     @PostMapping(path="/add") // Map ONLY POST Requests
     public @ResponseBody
-    String addUser(@RequestParam(required = false) String name,
-                   @RequestParam(required = false) String email,
-                   @RequestParam(required = false) String password) {
+    String addUser(@RequestBody User user) {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
-
-        User n = new User();
-        n.setName(name);
-        n.setUsername(email);
-        n.setPassword(password);
-        userRepository.save(n);
+        // @RequestBody used cause it works
+        userRepository.save(user);
         return "User saved";
+    }
+
+    @GetMapping(path="/find")
+    public @ResponseBody
+    Optional<User> findUserById(@RequestParam Integer id) {
+        return userRepository.findById(id);
     }
 }

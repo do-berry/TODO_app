@@ -6,6 +6,7 @@ import java.time.LocalDate;
 @Entity
 public class List {
     @Id
+    @Column(name="list_id")
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer list_id;
 
@@ -14,8 +15,12 @@ public class List {
     private LocalDate date;
 
     @ManyToOne(targetEntity = User.class)
-    @JoinColumn(name="user")
-    private Integer user_id;
+    @JoinColumn(name="user_id")
+    private User user;
+
+    public void setList_id(Integer list_id) {
+        this.list_id = list_id;
+    }
 
     public Integer getList_id() {
         return list_id;
@@ -37,11 +42,19 @@ public class List {
         this.date = date;
     }
 
-    public Integer getUser_id() {
-        return user_id;
+    public User getUser() {
+        return user;
     }
 
-    public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List() {};
+
+    public List(String name, User user) {
+        setName(name);
+        setUser(user);
+        setDate(LocalDate.now());
     }
 }
