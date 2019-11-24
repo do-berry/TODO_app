@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
+import java.util.Optional;
 
 @Controller
 @RequestMapping(path="/list")
@@ -16,18 +16,20 @@ public class ListController {
 
     @PostMapping(path="/add")
     public @ResponseBody
-    String addList(@RequestParam(required = false) String name, @RequestParam(required = false) Integer user_id) {
-        List l = new List();
-        l.setName(name);
-        l.setUser_id(user_id);
-        l.setDate(LocalDate.now());
-        listRepository.save(l);
+    String addList(@RequestBody List list) {
+        listRepository.save(list);
         return "List saved";
     }
 
     @GetMapping(path="/all")
-    public @ResponseBody Iterable<List> getAllUsers() {
+    public @ResponseBody Iterable<List> getAll() {
         // This returns a JSON or XML with the lists
         return listRepository.findAll();
+    }
+
+    @GetMapping(path="/find")
+    public @ResponseBody
+    Optional<List> findById(Integer id) {
+        return listRepository.findById(id);
     }
 }
