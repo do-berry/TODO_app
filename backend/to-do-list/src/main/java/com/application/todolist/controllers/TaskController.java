@@ -16,9 +16,8 @@ public class TaskController {
 
     @PostMapping(path="/add")
     public @ResponseBody
-    String addTask(@RequestBody Task task) {
+    void addTask(@RequestBody Task task) {
         taskRepository.save(task);
-        return "Task saved";
     }
 
     @GetMapping(path="/all")
@@ -27,7 +26,7 @@ public class TaskController {
         return taskRepository.findAll();
     }
 
-    @GetMapping(path="/find")
+    @GetMapping(path="/find/{id}")
     public @ResponseBody
     Optional<Task> findById(Integer id) {
         return taskRepository.findById(id);

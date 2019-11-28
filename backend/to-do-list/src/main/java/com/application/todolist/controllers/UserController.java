@@ -17,15 +17,14 @@ public class UserController {
 
     @PostMapping(path="/add") // Map ONLY POST Requests
     public @ResponseBody
-    String addUser(@RequestBody User user) {
+    void addUser(@RequestBody User user) {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
         // @RequestBody used cause it works
         userRepository.save(user);
-        return "User saved";
     }
 
-    @GetMapping(path="/find")
+    @GetMapping(path="/find/{id}")
     public @ResponseBody
     Optional<User> findUserById(@RequestParam Integer id) {
         return userRepository.findById(id);

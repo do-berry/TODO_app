@@ -16,9 +16,8 @@ public class ListController {
 
     @PostMapping(path="/add")
     public @ResponseBody
-    String addList(@RequestBody List list) {
+    void addList(@RequestBody List list) {
         listRepository.save(list);
-        return "List saved";
     }
 
     @GetMapping(path="/all")
@@ -27,7 +26,7 @@ public class ListController {
         return listRepository.findAll();
     }
 
-    @GetMapping(path="/find")
+    @GetMapping(path="/find/{id}")
     public @ResponseBody
     Optional<List> findById(Integer id) {
         return listRepository.findById(id);
