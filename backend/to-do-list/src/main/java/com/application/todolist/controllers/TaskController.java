@@ -10,6 +10,7 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping(path="/task")
+@CrossOrigin
 public class TaskController {
     @Autowired
     private TaskRepository taskRepository;
