@@ -10,6 +10,7 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping(path="/list")
+@CrossOrigin
 public class ListController {
     @Autowired
     private ListRepository listRepository;
